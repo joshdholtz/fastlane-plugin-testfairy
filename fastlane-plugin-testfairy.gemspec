@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = %q{josh@rokkincat.com}
 
   spec.summary       = %q{Upload IPA to TestFairy}
-  # spec.homepage      = "https://github.com/<GITHUB_USERNAME>/fastlane-plugin-testfairy"
+  spec.homepage      = "https://github.com/joshdholtz/fastlane-plugin-testfairy"
   spec.license       = "MIT"
 
   spec.files         = Dir["lib/**/*"] + %w(README.md LICENSE)

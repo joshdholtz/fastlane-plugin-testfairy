@@ -1,8 +1,8 @@
 module Fastlane
   module Actions
     module SharedValues
-      TEST_FAIRY_BUILD_INFORMATION = :TEST_FAIRY_BUILD_INFORMATION
-      TEST_FAIRY_DOWNLOAD_LINK = :TEST_FAIRY_DOWNLOAD_LINK
+      TESTFAIRY_BUILD_INFORMATION = :TESTFAIRY_BUILD_INFORMATION
+      TESTFAIRY_DOWNLOAD_LINK = :TESTFAIRY_DOWNLOAD_LINK
     end
 
     class TestfairyAction < Action
@@ -12,8 +12,8 @@ module Fastlane
         resp = RestClient.post "https://app.testfairy.com/api/upload", api_key: params[:api_key], file: File.new(params[:ipa])
         json = JSON.parse resp
 
-        Actions.lane_context[SharedValues::TEST_FAIRY_BUILD_INFORMATION] = json
-        Actions.lane_context[SharedValues::TEST_FAIRY_DOWNLOAD_LINK] = json['build_url']
+        Actions.lane_context[SharedValues::TESTFAIRY_BUILD_INFORMATION] = json
+        Actions.lane_context[SharedValues::TESTFAIRY_DOWNLOAD_LINK] = json['build_url']
       end
 
       #####################################################
@@ -21,19 +21,19 @@ module Fastlane
       #####################################################
 
       def self.description
-        "Upload a new build to TestFairy"
+        "Upload an IPA to TestFairy"
       end
 
       def self.available_options
         [
           FastlaneCore::ConfigItem.new(key: :api_key,
-                                       env_name: "FL_TEST_FAIRY_API_KEY",
+                                       env_name: "TESTFAIRY_API_KEY",
                                        description: "API KEY for TestFairyAction",
                                        verify_block: proc do |value|
                                           raise "No API key for TestFairyAction given, pass using `api_key: 'key'`".red unless (value and not value.empty?)
                                        end),
           FastlaneCore::ConfigItem.new(key: :ipa,
-                                       env_name: "FL_TEST_FAIRY_IPA",
+                                       env_name: "TESTFAIRY_IPA_PATH",
                                        description: "Path to your IPA file. Optional if you use the `gym` or `xcodebuild` action. For Mac zip the .app. For Android provide path to .apk file",
                                        default_value: Actions.lane_context[SharedValues::IPA_OUTPUT_PATH],
                                        verify_block: proc do |value|
@@ -46,8 +46,8 @@ module Fastlane
         # Define the shared values you are going to provide
         # Example
         [
-          ['TEST_FAIRY_BUILD_INFORMATION', 'The newly generated download link for this build'],
-          ['TEST_FAIRY_DOWNLOAD_LINK', 'Contains all keys/values from the TestFairy API (status, app_name, app_version, file_size, build_url, instrumented_url, invite_testers_url, icon_url)']
+          ['TESTFAIRY_BUILD_INFORMATION', 'The newly generated download link for this build'],
+          ['TESTFAIRY_DOWNLOAD_LINK', 'Contains all keys/values from the TestFairy API (status, app_name, app_version, file_size, build_url, instrumented_url, invite_testers_url, icon_url)']
         ]
       end
 
