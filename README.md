@@ -16,7 +16,7 @@ Upload IPA to [TestFairy](https://testfairy.com)
 
 ## Example
 
-Add the `aws_s3` action after the `gym` step:
+Add the `testfairy` action after the `gym` step:
 
 ```rb
 testfairy
